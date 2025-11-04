@@ -26,3 +26,15 @@ jobs:
       - run: docker compose logs app
         if: always()
 
+  release:
+    runs-on: ubuntu-latest
+    need: tests
+    steps:
+      - uses: actions/checkout@v4
+      - run: gh release create ${git rev-parse --short HEAD}
+
+  deploy:
+    runs-on: ubuntu-latest
+    need: release
+    steps:
+      - run: echo "Deploying..."
