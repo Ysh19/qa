@@ -28,13 +28,13 @@ jobs:
 
   release:
     runs-on: ubuntu-latest
-    need: tests
+    needs: tests
     steps:
       - uses: actions/checkout@v4
       - run: gh release create ${git rev-parse --short HEAD}
 
   deploy:
     runs-on: ubuntu-latest
-    need: release
+    needs: release
     steps:
       - run: echo "Deploying..."
